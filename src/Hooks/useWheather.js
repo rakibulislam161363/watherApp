@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { LocationContext } from "../context";
 
 const useWheather = () => {
   const [wheatherData, setWheatherData] = useState({
@@ -21,6 +22,7 @@ const useWheather = () => {
   });
 
   const [error, setError] = useState(null);
+  const { selectedItem } = useContext(LocationContext);
 
   const fetechWheather = async (latitude, longitude) => {
     try {
@@ -31,8 +33,10 @@ const useWheather = () => {
       });
 
       const response = await fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WHETHER_API_KEY}&units=metric`
-            );
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${
+          import.meta.env.VITE_WHETHER_API_KEY
+        }&units=metric`
+      );
 
       if (!response.ok) {
         const errowMassage = `featching wheather data failed: ${response.status}`;
@@ -69,20 +73,25 @@ const useWheather = () => {
   };
   useEffect(() => {
     setLoading({
+      ...loading,
       status: true,
       massage: "please waight finding data",
     });
-    navigator.geolocation.getCurrentPosition(function (position) {
-      fetechWheather(position.coords.latitude, position.coords.longitude);
-    });
-  }, []);
+
+    if (selectedItem.latitude && selectedItem.longitude) {
+      fetechWheather(selectedItem.latitude, selectedItem.longitude);
+    } else {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        fetechWheather(position.coords.latitude, position.coords.longitude);
+      });
+    }
+  }, [selectedItem.latitude, selectedItem.longitude]);
 
   return {
     wheatherData,
     error,
     loading,
-  }
+  };
 };
-
 
 export default useWheather;

@@ -1,3 +1,4 @@
 import useWheather from "./useWheather";
-
-export {useWheather};
+import useLocalStorage from "./useLocalStorage";
+import useDebouns from "./useDebouns";
+export {useWheather, useLocalStorage, useDebouns};

@@ -1,21 +1,17 @@
-import Header from "./component/header/header"
-import Wheather from "./component/wheather/wheather"
-import { WheatherProviders } from "./provaider"
+import Page from "./page";
+import { LocationProvider, WheatherProviders } from "./provaider";
+import {FevoriteProvider} from "./provaider";
 
 function App() {
   return (
+    <LocationProvider>
     <WheatherProviders>
-    <div className="h-screen">
-    <Header />
-    <main className="mt-20">
-      <section>
-        <Wheather />
-      </section>
-    </main>
-    </div>
+      <FevoriteProvider>
+        <Page />
+      </FevoriteProvider>
     </WheatherProviders>
-   
-  )
+    </LocationProvider>
+  );
 }
 
-export default App
+export default App;
