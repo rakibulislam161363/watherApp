@@ -9,7 +9,7 @@ import Search from "./search";
 export default function Header(){
 	const [showFevModal, setShowFevModal] = useState(false);
     return (
-        <header className="fixed w-full top-0 z-10 bg-gradient-to-b from-black/60 to-black/0 pb-10">
+        <header className="fixed px-10 w-full top-0 z-10 bg-gradient-to-b from-black/60 to-black/0 pb-10">
 		<nav className="contain flex items-center justify-between py-2">
 			<Logo />
 
