@@ -16,10 +16,12 @@ export default function AddToFavorite() {
   }, [fevorite, location]);
 
   const handleFevorite = () => {
+    console.log("hellow every one")
     const found = fevorite.find((fev) => fev.location === location);
-
+    console.log(found)
     if (!found) {
       AddToFevorites(location, latitude, longitude);
+      console.log(latitude, longitude, location)
     } else {
       RemoveToFevorite(location);
     }
@@ -32,7 +34,7 @@ export default function AddToFavorite() {
       <div className="flex items-center justify-end space-x-6">
         <button
           onClick={handleFevorite}
-          className="text-sm md:text-base inline-flex items-center space-x-2 px-3 py-1.5 rounded-md bg-[#C5C5C54D]"
+          className="text-sm md:text-base inline-flex items-center space-x-2 px-3 py-1.5 rounded-md bg-[#C5C5C54D] z-50"
         >
           <span>Add to Favourite</span>
           <img src={icon ? RedHeart : Heart} alt="" />
